@@ -1,16 +1,16 @@
 variable "public_key_path" {
   description = <<DESCRIPTION
 Path to the SSH public key to be used for authentication.
-Ensure this keypair is added to your local SSH agent so provisioners can
-connect.
+Ensure this keypair is added to your local SSH agent so provisioners can connect.
 Example: ~/.ssh/terraform.pub
+$ ssh-add ~/.ssh/terraform
 DESCRIPTION
-  default = "~/.ssh/id_rsa.pub"
+  default = "ssh/insecure-deployer.pub"
 }
 
 variable "key_name" {
   description = "Desired name of AWS key pair"
-  default = "myKey"
+  default = "deployerKey"
 }
 
 variable "aws_access_key" { 
@@ -52,4 +52,9 @@ variable "aws_amis" {
 variable "aws_instance_type" {
   description = "AWS EC2 instance type."
   default     = "t2.medium"
+}
+
+variable "app_cloud_config" {
+  description = "Early initialization of a cloud instance."
+  default     = "cloud-config/app.yml"
 }

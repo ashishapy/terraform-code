@@ -10,6 +10,7 @@ resource "aws_internet_gateway" "kube-ig" {
 resource "aws_subnet" "kube-pub" {
   vpc_id            = "${aws_vpc.kube-vpc.id}"
   cidr_block        = "${var.public_subnet_cidr}"
+  availability_zone = "us-west-2a"
   map_public_ip_on_launch = true
   depends_on = ["aws_internet_gateway.kube-ig"]
   tags { 
