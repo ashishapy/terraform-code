@@ -41,11 +41,13 @@ variable "private_subnet_cidr" {
   default     = "10.240.1.0/24"
 }
 
-# Docker 1.12.1 & Docker Compose 1.8.1 installed on Ubuntu 16.0 LTS (x64)
+# Docker 1.12.3 & Docker Compose 1.8.1 installed on Ubuntu 16.04 LTS (x64)
+# Image create from EC2 instance created by below command
+# docker-machine create --driver amazonec2 --amazonec2-ami ami-a9d276c9 --amazonec2-region us-west-2 --amazonec2-instance-type t2.micro
 variable "aws_amis" {
   description = "Base AMI to launch the instances with"
   default = {
-    us-west-2 = "ami-7b3ce41b"
+    us-west-2 = "ami-3c4dec5c"
   }
 }
 

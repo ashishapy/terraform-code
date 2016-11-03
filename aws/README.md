@@ -1,5 +1,8 @@
 # AWS Components to be created:
 
+Default region is 'us-west-2' & custom AMI id is 'ami-3c4dec5c' (Docker 1.12.3 & Docker Compose 1.8.1 installed 
+on Ubuntu 16.04 LTS (x64))
+
 - VPC
 - Internet Gateway for public subnet
 - Public subnet for routing instances
