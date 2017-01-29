@@ -1,0 +1,39 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "docker_compose_version": "1.10.0",
+    "default_region": "us-west-2",
+    "base_ami": "ami-b7a114d7",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `default_region`}}",
+    "source_ami": "{{user `base_ami`}}",
+    "instance_type": "{{user `instance_type`}}",
+    "ssh_username": "{{user `ssh_username`}}",
+    "ami_name": "Dockuntu {{timestamp}}",
+    "force_deregister": true
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get clean",
+      "sudo apt-get update",
+      "sudo apt-get install -y curl linux-image-extra-$(uname -r) linux-image-extra-virtual",
+      "sudo apt-get install -y apt-transport-https ca-certificates",
+      "sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D",
+      "sudo add-apt-repository \"deb https://apt.dockerproject.org/repo/ ubuntu-$(lsb_release -cs) main\"",
+      "sudo apt-get update",
+      "sudo apt-get install -y docker-engine",
+      "sudo usermod -aG docker $(whoami)",
+      "sudo curl -L \"https://github.com/docker/compose/releases/download/{{user `docker_compose_version`}}/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+      "sudo chmod +x /usr/local/bin/docker-compose"
+    ]
+    }]
+}
